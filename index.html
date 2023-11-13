@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API DogRandom generator</title>
+    <style>
+        body {
+            background-color: beige;
+        }
+        .main-text {
+            display: flex;
+            height: 54px;
+            padding-top: 34px;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 40px;
+            font-family: 'Garamond', serif;
+        }
+        .main-part {
+            display: flex;
+            background-color: rgb(0, 0, 0);
+            height: 520px;
+            width: 700px;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 90px;
+            background-image: url("none");
+            transition: 1s all;
+            position: absolute;
+            top: 200px;
+            right: 560px;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .main-part:hover {
+            border-color: rgb(82, 72, 14);
+        }
+        .generated-image {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            z-index: 1;
+            width: 1000px;
+            height: 680px;
+            background-image: url("TV1.png");
+            border-radius: 90px;
+            left: -30px;
+        }
+        .off-button {
+            display: flex;
+            border-radius: 50%;
+            height: 24px;
+            width: 24px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 368px;
+            margin-left: 793px;
+            background-color: bisque;
+            transition: 0.3s all;
+        }
+        .off-button:hover {
+            background-color: red;
+        }
+
+        .on-button {
+            position: absolute;
+            display: flex;
+            border-radius: 50%;
+            height: 24px;
+            width: 24px;
+            justify-content: center;
+            align-items: center;
+            background-color: bisque;
+            transition: 0.3s all;
+            top: -1px;
+            margin-top: 368px;
+            left: 820px;
+        }
+        .on-button:hover {
+            background-color: red;
+        }
+
+        .dog-button {
+            position: absolute;
+            display: flex;
+            border-radius: 50%;
+            height: 24px;
+            width: 24px;
+            justify-content: center;
+            align-items: center;
+            background-color: bisque;
+            transition: 0.3s all;
+            top: -1px;
+            margin-top: 368px;
+            left: 950px;
+        }
+        .dog-button:hover {
+            background-color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="main-text">
+            <h1>
+                <i>
+                    Random dog generator
+                </i>
+            </h1>
+        </div>
+    </header>
+    <main>
+        <div class="main-part" id="mainPart">
+            <div class="generated-image">
+                <button class="dog-button" id="dog-button" onclick="showRandomDog()">
+                    <h5>Dog</h5>
+                </button>
+                <button class="on-button" id="on-button" onclick="turnOn()">
+                    <h5>On</h5>
+                </button>
+                <button class="off-button" id="off-button" onclick="turnOff()">
+                    <h5>Off</h5>
+                </button>
+
+            </div>
+        </div>
+
+    </main>
+</body>
+<script>
+    let offBtn = 0;
+    function turnOff() {
+    offBtn = 0;
+    var mainPart = document.getElementById("mainPart");
+        if(offBtn==0){
+            mainPart.style.backgroundImage = "none";
+        }
+    }
+    function turnOn() {
+    
+    offBtn = 1;
+    var mainPart = document.getElementById("mainPart");
+        if(offBtn==1){
+            mainPart.style.backgroundImage = "url('white-noise.gif')";
+        }
+    } 
+    function showRandomDog() {
+        var mainPart = document.getElementById("mainPart");
+        if(offBtn==1){
+            fetch("https://dog.ceo/api/breeds/image/random")
+                .then(response => response.json())
+                .then(data => {
+                    mainPart.style.backgroundImage = "url('" + data.message + "')";
+                })
+                .catch(error => console.error("Error fetching random dog image:", error));
+        }
+    }
+  </script>
+</html>
